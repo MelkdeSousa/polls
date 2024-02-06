@@ -6,16 +6,23 @@
     "dev": "bun --watch src/http/server.ts",
     "build": "bun build src/index.ts",
     "start": "NODE_ENV=production bun src/index.ts",
-    "test": "bun test"
+    "test": "bun test",
+    "db:gen": "drizzle-kit generate:pg",
+    "db:migrate": "bun src/db/drizzle/migrator.ts"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "drizzle-kit": "^0.20.14"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
     "@elysiajs/swagger": "^0.8.5",
-    "elysia": "^0.8.15"
+    "drizzle-orm": "^0.29.3",
+    "elysia": "^0.8.15",
+    "pg": "^8.11.3",
+    "postgres": "^3.4.3",
+    "zod": "^3.22.4"
   }
 }

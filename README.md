@@ -1,8 +1,7 @@
 # Polls
 
 Aplicação backend de votação desenvolvida durante [NLW da Rocketseat](https://www.rocketseat.com.br/eventos/nlw).  
-<!-- A proposta da original da trilha Nodejs é desenvolver a aplicação com [Fastify](https://fastify.dev), [Prisma ORM](https://www.prisma.io/docs/orm), bem como -->
-
+A proposta da original da trilha Nodejs é desenvolver a aplicação com [Fastify](https://fastify.dev), [Prisma ORM](https://www.prisma.io/docs/orm), mas decidi usar outras para experimentar.
 
 ## Tecnologias
 

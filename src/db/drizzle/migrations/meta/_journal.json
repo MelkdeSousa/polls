@@ -8,6 +8,27 @@
       "when": 1707185225451,
       "tag": "0000_glamorous_crusher_hogan",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1707220541789,
+      "tag": "0001_fine_shadow_king",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1707270047079,
+      "tag": "0002_lame_starbolt",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1707271157867,
+      "tag": "0003_rapid_star_brand",
+      "breakpoints": true
     }
   ]
 }

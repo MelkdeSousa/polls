@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX IF NOT EXISTS "sessionId_pollId_unique" ON "votes" ("session_id","poll_id");

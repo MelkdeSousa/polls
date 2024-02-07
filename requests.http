@@ -1,1 +1,23 @@
 GET http://localhost:3000
+
+###
+
+POST http://localhost:3000/polls
+
+###
+
+GET http://localhost:3000/polls/4e4514ec-a97b-424e-bdca-88dd4f613223
+
+###
+
+GET http://localhost:3000/polls/4e4514ec-a97b-424e-bdca-88dd4f613225
+
+###
+
+POST http://localhost:3000/polls/4e4514ec-a97b-424e-bdca-88dd4f613225/votes
+Content-Type: application/json
+
+{
+    "optionId": "4e4514ec-a97b-424e-bdca-88dd4f613225"
+}
+

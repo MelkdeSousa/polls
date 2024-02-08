@@ -1,23 +1,22 @@
-GET http://localhost:3000
+@baseURL = http://localhost:3000
+@pollId = 75da2c40-fc59-4378-9059-b0887a7cf883
+
+# poll: Quantos anos eu tenho?
+GET {{baseURL}}/polls/{{pollId}}
 
 ###
 
-POST http://localhost:3000/polls
-
-###
-
-GET http://localhost:3000/polls/4e4514ec-a97b-424e-bdca-88dd4f613223
-
-###
-
-GET http://localhost:3000/polls/4e4514ec-a97b-424e-bdca-88dd4f613225
-
-###
-
-POST http://localhost:3000/polls/4e4514ec-a97b-424e-bdca-88dd4f613225/votes
-Content-Type: application/json
+POST @baseURL/polls/
 
 {
-    "optionId": "4e4514ec-a97b-424e-bdca-88dd4f613225"
+    "title":"Quantos anos eu tenho?",
+    "options": ["12", "21", "25", "22"]
 }
 
+###
+
+POST {{baseURL}}/polls/{{pollId}}/votes/
+
+{
+    "optionId": "81aab8f0-97a5-4fcd-a7bd-bebe75cc4b58"
+}

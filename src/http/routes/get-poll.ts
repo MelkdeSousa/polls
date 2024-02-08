@@ -1,5 +1,6 @@
 import { t, type Elysia, type Static } from "elysia";
 import { db } from "../../db/drizzle/connection";
+import { redis } from "../../db/redis";
 
 const PollOutputBody = t.Object({
 	id: t.String(),
@@ -22,7 +23,32 @@ export const getPoll = async (app: Elysia) => {
 				return { error: "Poll not found" };
 			}
 
-			return { poll };
+			const result = await redis.zrange(params.pollId, 0, -1, "WITHSCORES");
+
+			const votes = result.reduce(
+				(obj, line, index) => {
+					if (index % 2 === 0) {
+						const score = result[index + 1];
+
+						Object.assign(obj, {
+							[line]: Number(score),
+						});
+					}
+
+					return obj;
+				},
+				{} as Record<string, number>,
+			);
+
+			return {
+				poll: {
+					...poll,
+					options: poll.options.map((opt) => ({
+						...opt,
+						score: opt.id in votes ? votes[opt.id] : 0,
+					})),
+				},
+			};
 		},
 		{
 			params: t.Object({

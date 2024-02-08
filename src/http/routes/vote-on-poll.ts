@@ -2,6 +2,8 @@ import { eq } from "drizzle-orm";
 import { t, type Elysia } from "elysia";
 import { db } from "../../db/drizzle/connection";
 import { votes } from "../../db/drizzle/schemas";
+import { redis } from "../../db/redis";
+import { votingPubSub } from "../../lib/voting-pub-sub";
 
 export const voteOnPoll = async (app: Elysia) => {
 	return app.post(
@@ -24,6 +26,17 @@ export const voteOnPoll = async (app: Elysia) => {
 					await db
 						.delete(votes)
 						.where(eq(votes.id, userPreviouslyVotedOnPoll.id));
+
+					const score = await redis.zincrby(
+						params.pollId,
+						-1,
+						userPreviouslyVotedOnPoll.option_id as string,
+					);
+
+					votingPubSub.publish(params.pollId, {
+						optionId: userPreviouslyVotedOnPoll.option_id as string,
+						votes: Number(score),
+					});
 				} else if (userPreviouslyVotedOnPoll) {
 					set.status = 409;
 
@@ -35,6 +48,13 @@ export const voteOnPoll = async (app: Elysia) => {
 				session_id: sessionId.value,
 				poll_id: params.pollId,
 				option_id: body.optionId,
+			});
+
+			const score = await redis.zincrby(params.pollId, 1, body.optionId);
+
+			votingPubSub.publish(params.pollId, {
+				optionId: body.optionId,
+				votes: Number(score),
 			});
 
 			set.status = 201;
